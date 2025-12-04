@@ -233,22 +233,25 @@
        A barely-visible entity that flickers
        and drifts as the user scrolls. */
 
-  /* --------------------------------
-   Floating Watcher (brighter + more motion)
+/* --------------------------------
+   Floating Watcher (visible + ghostlike)
 ----------------------------------- */
 
 .watcher {
   position: fixed;
   right: 2vw;
   top: 20vh;
-  width: 340px;
-  height: auto;
+  width: 360px;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.22; /* brighter but still ghosty */
-  mix-blend-mode: screen; /* softer than lighten, reads better over dark bg */
-  filter: grayscale(1) contrast(1.15) brightness(1.05);
-  animation: watcherFloat 6s ease-in-out infinite alternate;
+
+  /* VISIBILITY TUNING */
+  opacity: 0.38;                /* reliably visible */
+  mix-blend-mode: normal;       /* no darkening, no wash-out */
+  filter: grayscale(1) contrast(1.25) brightness(1.25);
+
+  /* MOTION */
+  animation: watcherFloat 7s ease-in-out infinite alternate;
 }
 
 .watcher img {
@@ -257,33 +260,27 @@
   display: block;
 }
 
-/* stronger vertical drift with a tiny horizontal sway */
+/* smoother + bigger movement */
 @keyframes watcherFloat {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(-6px, -45px, 0);
-  }
-  100% {
-    transform: translate3d(0, -80px, 0);
-  }
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(-8px, -55px, 0); }
+  100% { transform: translate3d(0, -95px, 0); }
 }
 
-/* flicker on scroll only */
+/* flicker on scroll */
 @keyframes watcherFlicker {
-  0%, 100% { opacity: 0.18; }
-  40%      { opacity: 0.32; }
-  60%      { opacity: 0.12; }
+  0%, 100% { opacity: 0.34; }
+  40%      { opacity: 0.48; }
+  60%      { opacity: 0.26; }
 }
 
 html.scrolling .watcher {
   animation:
-    watcherFloat 6s ease-in-out infinite alternate,
+    watcherFloat 7s ease-in-out infinite alternate,
     watcherFlicker 0.25s steps(2) 1;
 }
 
-/* hide on small screens if you still want that */
+/* optional mobile hide */
 @media (max-width: 800px) {
   .watcher {
     display: none;
@@ -1350,6 +1347,7 @@ html.scrolling .watcher {
   </script>
 </body>
 </html>
+
 
 
 
