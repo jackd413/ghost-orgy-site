@@ -4,205 +4,1252 @@
   <meta charset="UTF-8" />
   <title>Ghost Orgy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Ghost Orgy is unforgiving die-fi ritual audio. Experimental horror sound that hits the body first, then the mind."
+  />
 
-  <!-- RSS Feed -->
+  <!-- RSS FEED -->
   <link
     rel="alternate"
     type="application/rss+xml"
-    title="Ghost Orgy — RSS Feed"
+    title="Ghost Orgy — RSS"
     href="https://feeds.soundcloud.com/users/soundcloud:users:12663938/sounds.rss"
   />
 
-  <!-- They Perished Font -->
+  <!-- Base fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Mono:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Display fonts from CDN -->
+  <!-- They Perished -->
   <link href="https://db.onlinewebfonts.com/c/1d065bbebe505e76388da924c9cdd356?family=They+Perished" rel="stylesheet">
-
-  <!-- Crimes Times Six Font -->
+  <!-- Crimes Times Six -->
   <link href="https://db.onlinewebfonts.com/c/1c29c34b645c849dc0c4558ce3074ec3?family=Crimes+Times+Six" rel="stylesheet">
-
-  <!-- IBM Plex (base UI fonts) -->
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet"/>
 
   <style>
     :root {
       --bg: #050608;
+      --bg-alt: #090a0c;
       --fg: #f5f5f5;
       --muted: #a0a4aa;
       --accent: #8affc1;
-      --border: #1b1c1e;
+      --accent-soft: rgba(138, 255, 193, 0.08);
+      --border: #2a2d33;
+      --radius: 4px;
+      --speed: 180ms ease-out;
+      scroll-behavior: smooth;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
-      background: var(--bg);
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
       color: var(--fg);
-      font-family: "IBM Plex Sans", sans-serif;
+    }
+
+    body {
+      font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
       line-height: 1.6;
     }
 
-    /* HEADER */
-    .header {
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 1px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* Header */
+
+    .site-header {
       border-bottom: 1px solid var(--border);
-      padding: 1.1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       background: #050608;
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 20;
     }
 
-    .logo {
-      font-family: "IBM Plex Mono";
-      letter-spacing: 0.3em;
+    .site-header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo-block {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      white-space: nowrap;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(138, 255, 193, 0.9);
+    }
+
+    .logo-title {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.95rem;
       text-transform: uppercase;
-      font-size: 0.9rem;
+      letter-spacing: 0.25em;
     }
 
-    nav a {
-      margin-left: 2rem;
+    .logo-sub {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
       color: var(--muted);
-      font-family: "IBM Plex Mono";
+    }
+
+    nav {
+      display: flex;
+      gap: 1.6rem;
+      font-family: "IBM Plex Mono", monospace;
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.2em;
     }
-    nav a:hover { color: var(--fg); }
 
-    /* HERO */
-    .hero {
-      max-width: 1000px;
-      padding: 4rem 2rem;
-      margin: 0 auto;
-    }
-
-    .hero-title {
-      font-family: "They Perished";
-      font-size: clamp(3rem, 6vw, 4rem);
-      letter-spacing: 0.05em;
-      margin-bottom: 1.2rem;
-    }
-
-    .hero-sub {
-      font-family: "IBM Plex Mono";
+    nav a {
+      position: relative;
+      padding-bottom: 0.2rem;
       color: var(--muted);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      margin-bottom: 2rem;
     }
 
-    /* SECTIONS */
-    section {
-      max-width: 1000px;
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width var(--speed);
+    }
+
+    nav a:hover {
+      color: var(--fg);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-flag {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 0.25rem 0.7rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .nav-flag span {
+      color: var(--accent);
+    }
+
+    .nav-main {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 30px;
+      height: 22px;
+      position: relative;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--fg);
+      transition: transform var(--speed), opacity var(--speed), top var(--speed), bottom var(--speed);
+    }
+
+    .nav-line:nth-child(1) {
+      top: 0;
+    }
+
+    .nav-line:nth-child(2) {
+      top: 10px;
+    }
+
+    .nav-line:nth-child(3) {
+      bottom: 0;
+    }
+
+    .nav-toggle.open .nav-line:nth-child(1) {
+      top: 10px;
+      transform: rotate(45deg);
+    }
+
+    .nav-toggle.open .nav-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.open .nav-line:nth-child(3) {
+      bottom: 10px;
+      transform: rotate(-45deg);
+    }
+
+    /* Mobile nav hidden by default so it does not show on desktop */
+    .mobile-nav {
+      display: none;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: #050608;
+    }
+
+    .mobile-nav-inner {
+      max-width: 960px;
       margin: 0 auto;
-      padding: 4rem 2rem;
+      padding: 0.6rem 1.5rem 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .mobile-nav a {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      padding: 0.25rem 0;
+    }
+
+    .mobile-nav a:hover {
+      color: var(--fg);
+    }
+
+    .mobile-nav.open {
+      display: block;
+    }
+
+    /* Hero */
+
+    .hero {
+      min-height: 68vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      gap: 2.4rem;
+      align-items: stretch;
+      padding-top: 3rem;
+      padding-bottom: 2.5rem;
       border-bottom: 1px solid var(--border);
     }
 
-    .section-title {
-      font-family: "Crimes Times Six";
-      font-size: 1.6rem;
-      letter-spacing: 0.08em;
-      margin-bottom: 1.5rem;
-      transform: scaleY(.97);
+    .hero-inner {
+      max-width: 580px;
+      align-self: center;
     }
 
-    /* PLATFORM BUTTONS */
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-label-dot {
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(138, 255, 193, 0.6);
+    }
+
+    .hero-title {
+      font-family: "They Perished", "IBM Plex Mono", monospace;
+      font-size: clamp(2.8rem, 6vw, 4.2rem);
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      margin: 0 0 0.8rem;
+      animation: go-flicker 7s infinite steps(70);
+    }
+
+    @keyframes go-flicker {
+      0%, 100% { opacity: 1; }
+      92% { opacity: 0.9; }
+      95% { opacity: 0.75; transform: translateX(-1px); }
+      97% { opacity: 0.95; transform: translateX(1px); }
+    }
+
+    .hero-note {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 1.5rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 32rem;
+    }
+
+    .hero-subtitle strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .btn {
+      border-radius: 0;
+      padding: 0.7rem 1.3rem;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: background-color var(--speed), color var(--speed), border-color var(--speed),
+        transform var(--speed);
+    }
+
+    .btn-primary {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      color: #040405;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+    }
+
+    .btn-ghost:hover {
+      background: #0f1115;
+      border-color: #3a3f46;
+    }
+
+    .btn-text {
+      border: none;
+      padding-left: 0;
+      padding-right: 0;
+      color: var(--muted);
+    }
+
+    .btn-text:hover {
+      color: var(--fg);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .meta-pill {
+      padding: 0.25rem 0.7rem;
+      border: 1px solid var(--border);
+      background: #05070a;
+    }
+
+    /* Hero creepy image panel */
+
+    .hero-panel {
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top, #151821 0, #050608 65%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .hero-image {
+      position: relative;
+      flex: 1;
+      background-image:
+        radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.75), transparent 55%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9)),
+        url("images/ghost-orchard-panel.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(1) contrast(1.4) brightness(0.8);
+      mix-blend-mode: normal;
+    }
+
+    .hero-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.45),
+          rgba(0, 0, 0, 0.45) 1px,
+          rgba(0, 0, 0, 0.6) 2px
+        );
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .hero-panel-caption {
+      padding: 0.7rem 0.9rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      background: #050608;
+    }
+
+    .hero-panel-caption span {
+      color: var(--accent);
+    }
+
+    /* Section layout */
+
+    section {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-head {
+      margin-bottom: 1.6rem;
+    }
+
+    .section-title {
+      font-family: "Crimes Times Six", "IBM Plex Mono", monospace;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0 0 0.6rem;
+      transform: scaleY(0.97);
+      transform-origin: bottom;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      max-width: 36rem;
+      font-size: 0.9rem;
+    }
+
+    /* Lore */
+
+    .lore-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 2rem;
+    }
+
+    .lore-text p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .lore-text p strong {
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    .lore-box {
+      border: 1px solid var(--border);
+      padding: 1rem 1.1rem;
+      background: #050608;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .lore-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.7rem;
+      color: var(--accent);
+    }
+
+    .lore-box ul {
+      padding-left: 1.1rem;
+      margin: 0.2rem 0 0;
+    }
+
+    .lore-box li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Sisters */
+
+    .sisters-list {
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 0.6rem 1rem 0.8rem;
+      background: #050608;
+    }
+
+    .sister {
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #13151a;
+    }
+
+    .sister:last-child {
+      border-bottom: none;
+    }
+
+    .sister-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.2rem;
+      align-items: baseline;
+      margin-bottom: 0.2rem;
+    }
+
+    .sister-circle {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .sister-name {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .sister-aspect {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #c2c6ce;
+    }
+
+    .sister-body {
+      color: var(--muted);
+      font-size: 0.86rem;
+      max-width: 46rem;
+    }
+
+    /* Music */
+
+    .music-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.5fr);
+      gap: 2rem;
+    }
+
+    .player-shell {
+      border: 1px solid var(--border);
+      background: #050608;
+    }
+
+    .player-note {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .player-embed iframe {
+      width: 100%;
+      height: 260px;
+      border: none;
+      display: block;
+    }
+
+    .music-copy {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
     .platforms {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 2rem;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
     }
 
     .platform-pill {
-      padding: 0.55rem 1rem;
+      border-radius: 0;
       border: 1px solid var(--border);
-      border-radius: 3px;
-      font-family: "IBM Plex Mono";
-      font-size: 0.75rem;
+      padding: 0.35rem 0.85rem;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: .15em;
-      display: flex;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-    .platform-pill:hover {
-      background: rgba(255,255,255,0.06);
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-family: "IBM Plex Mono";
+    .platform-pill span:first-child {
+      color: var(--fg);
+    }
+
+    .platform-pill:hover {
+      border-color: var(--accent);
+      color: var(--fg);
+    }
+
+    /* Contact */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .contact-copy {
       color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .contact-copy strong {
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    .contact-email {
+      margin-top: 0.9rem;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .contact-email a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    .contact-email a:hover {
+      color: var(--fg);
+    }
+
+    .social-block {
+      border: 1px solid var(--border);
+      background: #050608;
+      padding: 0.9rem 1rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .social-title {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 0.6rem;
+      color: var(--fg);
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .social-link {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+    }
+
+    .social-link span:first-child {
+      color: var(--accent);
+    }
+
+    .social-link:hover {
+      color: var(--fg);
+    }
+
+    /* Footer */
+
+    footer {
+      padding: 1.6rem 1.5rem 3rem;
       border-top: 1px solid var(--border);
       font-size: 0.75rem;
-      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: "IBM Plex Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 800px) {
+      .site-header-inner {
+        padding-inline: 1.2rem;
+      }
+
+      .nav-main nav {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-flag {
+        display: none;
+      }
+
+      .mobile-nav-inner {
+        padding-inline: 1.2rem;
+      }
+
+      .shell {
+        padding-inline: 1.2rem;
+      }
+
+      .hero {
+        min-height: 0;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.8rem;
+        padding-top: 2.3rem;
+      }
+
+      .hero-panel {
+        min-height: 260px;
+      }
+
+      .lore-layout,
+      .music-layout,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero-title {
+        letter-spacing: 0.03em;
+      }
     }
   </style>
 </head>
-
 <body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="logo-block">
+        <div class="logo-dot"></div>
+        <div>
+          <div class="logo-title">Ghost Orgy</div>
+          <div class="logo-sub">Die-fi ritual audio</div>
+        </div>
+      </div>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="logo">GHOST ORGY</div>
-    <nav>
-      <a href="#lore">Lore</a>
-      <a href="#sisters">Sisters</a>
-      <a href="#music">Music</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <div class="nav-main">
+        <nav>
+          <a href="#top">Home</a>
+          <a href="#lore">Lore</a>
+          <a href="#sisters">Sisters</a>
+          <a href="#music">Music</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-flag">
+          <span>New:</span> album sequence in progress
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <div class="nav-line"></div>
+          <div class="nav-line"></div>
+          <div class="nav-line"></div>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav">
+      <div class="mobile-nav-inner">
+        <a href="#top">Home</a>
+        <a href="#lore">Lore</a>
+        <a href="#sisters">Sisters</a>
+        <a href="#music">Music</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
   </header>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-sub">EXPERIMENTAL • HORROR • DIE-FI</div>
-    <h1 class="hero-title">GHOST ORGY</h1>
-    <p>A ritual audio project exploring dread, identity collapse, and metaphysical hunger.  
-    Built around the Nine Sisters, the Orchard, and sound engineered to be **felt** as much as heard.</p>
-  </div>
+  <main class="shell" id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-label">
+          <div class="hero-label-dot"></div>
+          <span>Experimental. Horror. Unforgiving.</span>
+        </div>
 
-  <!-- LORE -->
-  <section id="lore">
-    <h2 class="section-title">Lore</h2>
-    <p>Ghost Orgy is an experimental narrative audio project built around the Nine Sisters — expelled archetypes of sin, hunger, and metaphysical rupture. The Orchard breathes beneath all things, and every track serves as both ritual and revelation.</p>
-  </section>
+        <h1 class="hero-title">Ghost Orgy</h1>
 
-  <!-- SISTERS -->
-  <section id="sisters">
-    <h2 class="section-title">The Nine Sisters</h2>
-    <p>A canon of dread, identity fracture, and cosmological rebellion. Portraits, lore packets, and full cosmology coming soon.</p>
-  </section>
+        <p class="hero-note">
+          not a band. a canon wired into a signal chain.
+        </p>
 
-  <!-- MUSIC -->
-  <section id="music">
-    <h2 class="section-title">Music</h2>
-    <p>Listen to Ghost Orgy across platforms. More releases and official sequences coming soon.</p>
+        <p class="hero-subtitle">
+          Ghost Orgy is <strong>unforgiving die-fi</strong>: ritual audio built from breath,
+          noise, and distortion. It is meant to hit the body first and explain itself later,
+          if at all.
+        </p>
 
-    <div class="platforms">
-      <a class="platform-pill" href="https://soundcloud.com/ghostorgymusic" target="_blank">SoundCloud ↗</a>
-      <a class="platform-pill" href="https://ghostorgy.bandcamp.com/" target="_blank">Bandcamp ↗</a>
-      <a class="platform-pill" href="https://www.instagram.com/ghostorgy.music/" target="_blank">Instagram ↗</a>
-      <a class="platform-pill" href="https://www.tiktok.com/@ghostorgy.music" target="_blank">TikTok ↗</a>
-      <a class="platform-pill" href="https://www.facebook.com/9ghostlysisters" target="_blank">Facebook ↗</a>
-      <a class="platform-pill" href="https://feeds.soundcloud.com/users/soundcloud:users:12663938/sounds.rss" target="_blank">RSS ◎</a>
-    </div>
-  </section>
+        <div class="hero-actions">
+          <a
+            class="btn btn-primary"
+            href="https://soundcloud.com/ghostorgymusic"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Listen on soundcloud</span>
+            <span>▶</span>
+          </a>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2 class="section-title">Contact</h2>
-    <p>Email: <a href="mailto:info@unholyghost.org">info@unholyghost.org</a></p>
-  </section>
+          <a
+            class="btn btn-ghost"
+            href="https://open.spotify.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Stream on spotify</span>
+          </a>
 
-  <!-- FOOTER -->
+          <a class="btn btn-text" href="#music">
+            <span>skip to a ritual cut ↓</span>
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="meta-pill">Nine sisters • one orchard</div>
+          <div class="meta-pill">asmr • bass weight • narrative horror</div>
+        </div>
+      </div>
+
+      <figure class="hero-panel">
+        <div class="hero-image"></div>
+        <figcaption class="hero-panel-caption">
+          <span>Orchard of Unmaking</span> · field record, visual residue only
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="lore">
+      <div class="section-head">
+        <h2 class="section-title">Lore</h2>
+        <p class="section-sub">
+          The project lives between experimental audio, horror fiction, and obsessive
+          production. The Nine Sisters and the Orchard of Unmaking thread through everything.
+        </p>
+      </div>
+
+      <div class="lore-layout">
+        <div class="lore-text">
+          <p>
+            Ghost Orgy is not a touring act or a live band. It is a <strong>canon</strong>,
+            a <strong>ritual system</strong>, and a set of haunted rules that keep showing up
+            in sound, text, and image.
+          </p>
+          <p>
+            Each piece is treated as an encounter. Close-mic whispers that feel too near.
+            Detail rich atmospheres. Low end that does not stay in the speakers. Structures
+            that follow the Sisters more than safe song templates.
+          </p>
+          <p>
+            At the core are the <strong>Nine Sisters</strong> human in origin, taken by Hell,
+            then expelled when they destabilized its structure. They move through the
+            <strong>Orchard of Unmaking</strong> and pull people in through obsession, hunger,
+            wrong motion, and fracture.
+          </p>
+        </div>
+
+        <aside class="lore-box">
+          <div class="lore-label">Operating constraints</div>
+          <p>
+            The work has a few hard rules. If a track does not hit these, it does not belong here.
+          </p>
+          <ul>
+            <li>No safe background music.</li>
+            <li>High density, lossless friendly sound design.</li>
+            <li>Narratives that reward repeat listening.</li>
+            <li>Canon coherence across tracks, art, and text.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="sisters">
+      <div class="section-head">
+        <h2 class="section-title">The Nine Sisters</h2>
+        <p class="section-sub">
+          Expelled archetypes. Each with her own law, voice, and ritual. Together they mark the
+          cracks Heaven tried to name out of existence.
+        </p>
+      </div>
+
+      <div class="sisters-list">
+        <div class="sister">
+          <div class="sister-header">
+            <div class="sister-circle">Circle I • Limbo</div>
+            <div class="sister-name">Limbo</div>
+            <div class="sister-aspect">Annihilation of anchor</div>
+          </div>
+          <div class="sister-body">
+            Acceleration without arrival. Pace without center. She breaks clocks, sequences,
+            and the idea that a present moment can ever hold still.
+          </div>
+        </div>
+
+        <div class="sister">
+          <div class="sister-header">
+            <div class="sister-circle">Circle II • Lust</div>
+            <div class="sister-name">Lust</div>
+            <div class="sister-aspect">Desire that overwrites self</div>
+          </div>
+          <div class="sister-body">
+            Obsession turned cannibal. She amplifies want until memory and motive collapse and
+            only the object remains.
+          </div>
+        </div>
+
+        <div class="sister">
+          <div class="sister-header">
+            <div class="sister-circle">Circle III • Gluttony</div>
+            <div class="sister-name">Gluttony</div>
+            <div class="sister-aspect">Starvation of meaning</div>
+          </div>
+          <div class="sister-body">
+            Not hunger for food. Hunger for significance. She drains color, joy, and purpose
+            until only the ache and the need to fill it are left.
+          </div>
+        </div>
+
+        <div class="sister">
+          <div class="sister-header">
+            <div class="sister-circle">Circle IV • Greed</div>
+            <div class="sister-name">Greed</div>
+            <div class="sister-aspect">Wealth as disease</div>
+          </div>
+          <div class="sister-body">
+            Gold fused to flesh. Every grasping instinct ritualized. Thrones built out of other
+            people and called success.
+          </div>
+        </div>
+
+        <div class="sister">
+          <div class="sister-header">
+            <div class="sister-circle">Circle V • Wrath</div>
+            <div class="sister-name">Wrath</div>
+            <div class="sister-aspect">Force without repair</div>
+          </div>
+          <div class="sister-body">
+            Impact as language. She speaks in breaks, shatters, and blows that all say the same thing:
+            nothing is going back how it was.
+          </div>
+        </div>
+
+        <div class="sister">
+          <div class="sister-header">
+            <div class="sister-circle">Circle VI • Heresy</div>
+            <div class="sister-name">Heresy</div>
+            <div class="sister-aspect">Speech against structure</div>
+          </div>
+          <div class="sister-body">
+            She talks in loopholes and misalignments. Doctrine melts around her. Systems forget how
+            to hold their own weight.
+          </div>
+        </div>
+
+        <div class="sister">
+          <div class="sister-header">
+            <div class="sister-circle">Circle VII • Violence</div>
+            <div class="sister-name">Violence</div>
+            <div class="sister-aspect">Cruelty as grammar</div>
+          </div>
+          <div class="sister-body">
+            Harm repeated until it becomes structure. Wounds multiplied in stone, glass, and mirrored
+            surfaces that never quite stop reflecting.
+          </div>
+        </div>
+
+        <div class="sister">
+          <div class="sister-header">
+            <div class="sister-circle">Circle VIII • Fraud</div>
+            <div class="sister-name">Fraud</div>
+            <div class="sister-aspect">False faces</div>
+          </div>
+          <div class="sister-body">
+            Porcelain reflections and mirrored eyes. She does not argue with truth. She replaces it
+            with whatever performs better in the moment.
+          </div>
+        </div>
+
+        <div class="sister">
+          <div class="sister-header">
+            <div class="sister-circle">Circle IX • Treachery</div>
+            <div class="sister-name">Treachery</div>
+            <div class="sister-aspect">Betrayal as architecture</div>
+          </div>
+          <div class="sister-body">
+            Mechanical stillness. Leathery husk mask. The quiet realization that the floor under you
+            was traded away a long time ago.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="music">
+      <div class="section-head">
+        <h2 class="section-title">Music</h2>
+        <p class="section-sub">
+          Built for headphones and systems that can move air. Detail forward, effect heavy,
+          but not polished into something safe.
+        </p>
+      </div>
+
+      <div class="music-layout">
+        <div class="player-shell">
+          <div class="player-note">
+            replace this embed with a real soundcloud or bandcamp player
+          </div>
+          <div class="player-embed">
+            <!-- swap the track id or url with your own embed when you are ready -->
+            <iframe
+              title="Ghost Orgy on SoundCloud"
+              scrolling="no"
+              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/293"
+            ></iframe>
+          </div>
+        </div>
+
+        <div>
+          <p class="music-copy">
+            The signal chain is set up to keep texture intact instead of sanding it down. Close
+            dynamic vocals, heavy modulation, and enough headroom for the quiet parts to stay
+            dangerous.
+          </p>
+          <p class="music-copy">
+            The term <strong>die-fi</strong> is a working rule: high production value and lossless
+            detail kept in service of something damaged and uncomfortable instead of comforting.
+          </p>
+
+          <div class="platforms">
+            <a
+              href="https://soundcloud.com/ghostorgymusic"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="platform-pill"
+            >
+              <span>Soundcloud</span>
+              <span>↗</span>
+            </a>
+            <a
+              href="https://ghostorgy.bandcamp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="platform-pill"
+            >
+              <span>Bandcamp</span>
+              <span>↗</span>
+            </a>
+            <a
+              href="https://feeds.soundcloud.com/users/soundcloud:users:12663938/sounds.rss"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="platform-pill"
+            >
+              <span>RSS feed</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-sub">
+          Collabs, placements, long form narrative work, or people who feel wired for this kind
+          of thing.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-copy">
+          <p>
+            The project was built with worlds in mind. Games, film, narrative audio, liminal
+            visuals, installations. Anywhere that needs horror and high end sound design in the
+            same body.
+          </p>
+          <p>
+            If you want to build something specific with Ghost Orgy instead of just dropping a
+            track into a playlist, reach out and say what you have in mind.
+          </p>
+
+          <div class="contact-email">
+            Email:
+            <a href="mailto:info@unholyghost.org">info@unholyghost.org</a>
+          </div>
+        </div>
+
+        <aside class="social-block">
+          <div class="social-title">Channels</div>
+          <p>
+            Social presence is light by design. Expect fewer posts and more intent when something
+            does show up.
+          </p>
+          <div class="social-links">
+            <a
+              href="https://www.tiktok.com/@ghostorgy.music"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span>♬</span>
+              <span>Ghost Orgy on TikTok</span>
+            </a>
+            <a
+              href="https://www.instagram.com/ghostorgy.music/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span>◎</span>
+              <span>@ghostorgy.music on Instagram</span>
+            </a>
+            <a
+              href="https://www.facebook.com/9ghostlysisters"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span>✚</span>
+              <span>Facebook</span>
+            </a>
+            <a
+              href="https://soundcloud.com/ghostorgymusic"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span>☁</span>
+              <span>Soundcloud</span>
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
   <footer>
-    © 2025 Ghost Orgy — Ritual Audio for the Unforgiven
+    <div class="footer-inner">
+      <div>Ghost Orgy</div>
+      <div>© <span id="year"></span> all rights reserved</div>
+    </div>
   </footer>
 
+  <script>
+    // year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // mobile nav
+    const toggle = document.querySelector(".nav-toggle");
+    const mobileNav = document.getElementById("mobileNav");
+
+    if (toggle && mobileNav) {
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("open");
+        mobileNav.classList.toggle("open");
+      });
+
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          toggle.classList.remove("open");
+          mobileNav.classList.remove("open");
+        });
+      });
+    }
+  </script>
 </body>
 </html>
