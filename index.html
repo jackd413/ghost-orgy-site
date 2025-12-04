@@ -234,18 +234,33 @@
        and drifts as the user scrolls. */
 
     .watcher {
-      position: fixed;
-      right: 2vw;
-      top: 20vh;
-      width: 320px;
-      height: auto;
-      pointer-events: none;
-      z-index: 5;
-      opacity: 0.06;
-      mix-blend-mode: lighten;
-      filter: grayscale(1) contrast(1.4) brightness(0.25);
-      animation: watcherFloat 8s ease-in-out infinite alternate;
-    }
+  position: fixed;
+  right: 2vw;
+  top: 20vh;
+  width: 320px;
+  height: auto;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 1;                 /* full strength for debugging */
+  mix-blend-mode: normal;     /* no blending tricks yet */
+  filter: none;               /* no darkening */
+  border: 2px solid red;      /* so you can see its bounds */
+}
+
+.watcher img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* COMMENT THIS OUT WHILE DEBUGGING
+@media (max-width: 800px) {
+  .watcher {
+    display: none;
+  }
+}
+*/
+
 
     .watcher img {
       width: 100%;
@@ -1341,3 +1356,4 @@
   </script>
 </body>
 </html>
+
