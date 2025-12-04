@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ghost Orgy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- RSS Feed -->
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="Ghost Orgy — RSS Feed"
+    href="https://feeds.soundcloud.com/users/soundcloud:users:12663938/sounds.rss"
+  />
+
+  <!-- They Perished Font -->
+  <link href="https://db.onlinewebfonts.com/c/1d065bbebe505e76388da924c9cdd356?family=They+Perished" rel="stylesheet">
+
+  <!-- Crimes Times Six Font -->
+  <link href="https://db.onlinewebfonts.com/c/1c29c34b645c849dc0c4558ce3074ec3?family=Crimes+Times+Six" rel="stylesheet">
+
+  <!-- IBM Plex (base UI fonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg: #050608;
+      --fg: #f5f5f5;
+      --muted: #a0a4aa;
+      --accent: #8affc1;
+      --border: #1b1c1e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "IBM Plex Sans", sans-serif;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding: 1.1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #050608;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .logo {
+      font-family: "IBM Plex Mono";
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      margin-left: 2rem;
+      color: var(--muted);
+      font-family: "IBM Plex Mono";
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    nav a:hover { color: var(--fg); }
+
+    /* HERO */
+    .hero {
+      max-width: 1000px;
+      padding: 4rem 2rem;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-family: "They Perished";
+      font-size: clamp(3rem, 6vw, 4rem);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-sub {
+      font-family: "IBM Plex Mono";
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    /* SECTIONS */
+    section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-family: "Crimes Times Six";
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+      transform: scaleY(.97);
+    }
+
+    /* PLATFORM BUTTONS */
+    .platforms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .platform-pill {
+      padding: 0.55rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-family: "IBM Plex Mono";
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .platform-pill:hover {
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-family: "IBM Plex Mono";
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">GHOST ORGY</div>
+    <nav>
+      <a href="#lore">Lore</a>
+      <a href="#sisters">Sisters</a>
+      <a href="#music">Music</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-sub">EXPERIMENTAL • HORROR • DIE-FI</div>
+    <h1 class="hero-title">GHOST ORGY</h1>
+    <p>A ritual audio project exploring dread, identity collapse, and metaphysical hunger.  
+    Built around the Nine Sisters, the Orchard, and sound engineered to be **felt** as much as heard.</p>
+  </div>
+
+  <!-- LORE -->
+  <section id="lore">
+    <h2 class="section-title">Lore</h2>
+    <p>Ghost Orgy is an experimental narrative audio project built around the Nine Sisters — expelled archetypes of sin, hunger, and metaphysical rupture. The Orchard breathes beneath all things, and every track serves as both ritual and revelation.</p>
+  </section>
+
+  <!-- SISTERS -->
+  <section id="sisters">
+    <h2 class="section-title">The Nine Sisters</h2>
+    <p>A canon of dread, identity fracture, and cosmological rebellion. Portraits, lore packets, and full cosmology coming soon.</p>
+  </section>
+
+  <!-- MUSIC -->
+  <section id="music">
+    <h2 class="section-title">Music</h2>
+    <p>Listen to Ghost Orgy across platforms. More releases and official sequences coming soon.</p>
+
+    <div class="platforms">
+      <a class="platform-pill" href="https://soundcloud.com/ghostorgymusic" target="_blank">SoundCloud ↗</a>
+      <a class="platform-pill" href="https://ghostorgy.bandcamp.com/" target="_blank">Bandcamp ↗</a>
+      <a class="platform-pill" href="https://www.instagram.com/ghostorgy.music/" target="_blank">Instagram ↗</a>
+      <a class="platform-pill" href="https://www.tiktok.com/@ghostorgy.music" target="_blank">TikTok ↗</a>
+      <a class="platform-pill" href="https://www.facebook.com/9ghostlysisters" target="_blank">Facebook ↗</a>
+      <a class="platform-pill" href="https://feeds.soundcloud.com/users/soundcloud:users:12663938/sounds.rss" target="_blank">RSS ◎</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p>Email: <a href="mailto:info@unholyghost.org">info@unholyghost.org</a></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Ghost Orgy — Ritual Audio for the Unforgiven
+  </footer>
+
+</body>
+</html>
