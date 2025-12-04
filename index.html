@@ -233,22 +233,22 @@
        A barely-visible entity that flickers
        and drifts as the user scrolls. */
 
-  /* -------------------------------
-   Floating Watcher (Ghost Orgy)
---------------------------------- */
+  /* --------------------------------
+   Floating Watcher (brighter + more motion)
+----------------------------------- */
 
 .watcher {
   position: fixed;
   right: 2vw;
   top: 20vh;
-  width: 320px;
+  width: 340px;
   height: auto;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.07;               /* subtle */
-  mix-blend-mode: lighten;     /* melts into the page */
-  filter: grayscale(1) contrast(1.4) brightness(0.3);
-  animation: watcherFloat 8s ease-in-out infinite alternate;
+  opacity: 0.22; /* brighter but still ghosty */
+  mix-blend-mode: screen; /* softer than lighten, reads better over dark bg */
+  filter: grayscale(1) contrast(1.15) brightness(1.05);
+  animation: watcherFloat 6s ease-in-out infinite alternate;
 }
 
 .watcher img {
@@ -257,31 +257,33 @@
   display: block;
 }
 
-/* Soft vertical drift */
+/* stronger vertical drift with a tiny horizontal sway */
 @keyframes watcherFloat {
-  from {
-    transform: translateY(0);
+  0% {
+    transform: translate3d(0, 0, 0);
   }
-  to {
-    transform: translateY(-25px);
+  50% {
+    transform: translate3d(-6px, -45px, 0);
+  }
+  100% {
+    transform: translate3d(0, -80px, 0);
   }
 }
 
-/* Scroll-based flicker */
+/* flicker on scroll only */
 @keyframes watcherFlicker {
-  0%, 100% { opacity: 0.05; }
-  40%      { opacity: 0.10; }
-  60%      { opacity: 0.03; }
+  0%, 100% { opacity: 0.18; }
+  40%      { opacity: 0.32; }
+  60%      { opacity: 0.12; }
 }
 
-/* Add flicker only while scrolling */
 html.scrolling .watcher {
   animation:
-    watcherFloat 8s ease-in-out infinite alternate,
-    watcherFlicker 0.3s steps(2) 1;
+    watcherFloat 6s ease-in-out infinite alternate,
+    watcherFlicker 0.25s steps(2) 1;
 }
 
-/* Hide watcher on small screens (optional) */
+/* hide on small screens if you still want that */
 @media (max-width: 800px) {
   .watcher {
     display: none;
@@ -1348,5 +1350,6 @@ html.scrolling .watcher {
   </script>
 </body>
 </html>
+
 
 
