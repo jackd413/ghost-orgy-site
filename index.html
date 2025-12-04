@@ -25,6 +25,56 @@
     rel="stylesheet"
   />
 
+  /* -------------------------------
+   Floating Watcher (Ghost Orgy)
+   A barely-visible entity that flickers
+   and drifts as the user scrolls.
+--------------------------------- */
+
+.watcher {
+  position: fixed;
+  right: 2vw;
+  top: 20vh;
+  width: 380px;
+  height: auto;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.06;
+  mix-blend-mode: lighten;
+  filter: grayscale(1) contrast(1.4) brightness(0.25);
+  animation: watcherFloat 8s ease-in-out infinite alternate;
+}
+
+/* Image sizing */
+.watcher img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Soft vertical drift */
+@keyframes watcherFloat {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-25px);
+  }
+}
+
+/* Scroll-based flicker */
+@keyframes watcherFlicker {
+  0%, 100% { opacity: 0.05; }
+  40% { opacity: 0.09; }
+  60% { opacity: 0.03; }
+}
+
+/* Flicker on scroll */
+html.scrolling .watcher {
+  animation: watcherFloat 8s ease-in-out infinite alternate,
+             watcherFlicker 0.3s steps(2) 1;
+}
+
   <!-- Display fonts from CDN -->
   <!-- They Perished -->
   <link href="https://db.onlinewebfonts.com/c/1d065bbebe505e76388da924c9cdd356?family=They+Perished" rel="stylesheet">
@@ -1288,8 +1338,24 @@
       });
     }
   </script>
+  <!-- Floating Watcher (Ghost Orgy) -->
+<div class="watcher">
+  <img src="images/watcher-face.png" alt="">
+</div>
+  <script>
+let scrollTimer;
+window.addEventListener("scroll", () => {
+  document.documentElement.classList.add("scrolling");
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(() => {
+    document.documentElement.classList.remove("scrolling");
+  }, 150);
+});
+</script>
+
 </body>
 </html>
+
 
 
 
