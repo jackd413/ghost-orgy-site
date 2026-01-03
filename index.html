@@ -9,16 +9,35 @@
     content="Ghost Orgy is unforgiving die-fi ritual audio. Experimental horror sound that hits the body first, then the mind."
   />
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R946B19QCY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Canonical + theming -->
+  <link rel="canonical" href="https://www.unholyghost.org/" />
+  <meta name="theme-color" content="#050608" />
 
-  gtag('config', 'G-R946B19QCY');
-</script>
-  
+  <!-- Social previews (Open Graph / Twitter) -->
+  <meta property="og:title" content="Ghost Orgy — Die-fi ritual audio" />
+  <meta property="og:description" content="Unforgiving die-fi ritual audio. Experimental horror sound that hits the body first, then the mind." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.unholyghost.org/" />
+  <meta property="og:image" content="https://www.unholyghost.org/images/og-card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicons (add these files if you want custom icons) -->
+  <link rel="icon" href="images/favicon.ico" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+
+  <!-- Preload key images (helps avoid late pop-in) -->
+  <link rel="preload" as="image" href="images/hero-sister.jpg?v=2" />
+  <link rel="preload" as="image" href="images/watcher-face.png" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R946B19QCY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-R946B19QCY");
+  </script>
+
   <!-- RSS FEED -->
   <link
     rel="alternate"
@@ -52,12 +71,11 @@
       --border: #2a2d33;
       --radius: 4px;
       --speed: 180ms ease-out;
-      scroll-behavior: smooth;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     html,
     body {
@@ -166,13 +184,8 @@
       transition: width var(--speed);
     }
 
-    nav a:hover {
-      color: var(--fg);
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
+    nav a:hover { color: var(--fg); }
+    nav a:hover::after { width: 100%; }
 
     .nav-flag {
       font-family: "IBM Plex Mono", monospace;
@@ -184,9 +197,7 @@
       color: var(--muted);
     }
 
-    .nav-flag span {
-      color: var(--accent);
-    }
+    .nav-flag span { color: var(--accent); }
 
     .nav-main {
       display: flex;
@@ -213,89 +224,80 @@
       transition: transform var(--speed), opacity var(--speed), top var(--speed), bottom var(--speed);
     }
 
-    .nav-line:nth-child(1) {
-      top: 0;
-    }
-
-    .nav-line:nth-child(2) {
-      top: 10px;
-    }
-
-    .nav-line:nth-child(3) {
-      bottom: 0;
-    }
+    .nav-line:nth-child(1) { top: 0; }
+    .nav-line:nth-child(2) { top: 10px; }
+    .nav-line:nth-child(3) { bottom: 0; }
 
     .nav-toggle.open .nav-line:nth-child(1) {
       top: 10px;
       transform: rotate(45deg);
     }
-
-    .nav-toggle.open .nav-line:nth-child(2) {
-      opacity: 0;
-    }
-
+    .nav-toggle.open .nav-line:nth-child(2) { opacity: 0; }
     .nav-toggle.open .nav-line:nth-child(3) {
       bottom: 10px;
       transform: rotate(-45deg);
     }
 
-    /* Floating Watcher (Ghost Orgy)
-       A barely-visible entity that flickers
-       and drifts as the user scrolls. */
+    /* Ensure sticky header doesn't hide section headings when jumping */
+    section { scroll-margin-top: 92px; }
 
-/* --------------------------------
-   Floating Watcher (visible + ghostlike)
------------------------------------ */
+    /* Floating Watcher (scroll parallax + float, without transform conflicts) */
 
-.watcher {
-  position: fixed;
-  right: 2vw;
-  top: 20vh;
-  width: 360px;
-  pointer-events: none;
-  z-index: 9999;
+    .watcher {
+      position: fixed;
+      right: 2vw;
+      top: 20vh;
+      width: 360px;
+      pointer-events: none;
+      z-index: 9999;
 
-  /* VISIBILITY TUNING */
-  opacity: 0.38;                /* reliably visible */
-  mix-blend-mode: normal;       /* no darkening, no wash-out */
-  filter: grayscale(1) contrast(1.25) brightness(1.25);
+      opacity: 0.38;
+      mix-blend-mode: normal;
+      filter: grayscale(1) contrast(1.25) brightness(1.25);
 
-  /* MOTION */
-  animation: watcherFloat 7s ease-in-out infinite alternate;
-}
+      /* scroll/parallax owns transform on OUTER wrapper */
+      will-change: transform;
+    }
 
-.watcher img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+    .watcher-inner {
+      /* float animation owns transform on INNER wrapper */
+      animation: watcherFloat 7s ease-in-out infinite alternate;
+      will-change: transform;
+    }
 
-/* smoother + bigger movement */
-@keyframes watcherFloat {
-  0%   { transform: translate3d(0, 0, 0); }
-  50%  { transform: translate3d(-8px, -55px, 0); }
-  100% { transform: translate3d(0, -95px, 0); }
-}
+    .watcher img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
-/* flicker on scroll */
-@keyframes watcherFlicker {
-  0%, 100% { opacity: 0.34; }
-  40%      { opacity: 0.48; }
-  60%      { opacity: 0.26; }
-}
+    @keyframes watcherFloat {
+      0%   { transform: translate3d(0, 0, 0); }
+      50%  { transform: translate3d(-8px, -55px, 0); }
+      100% { transform: translate3d(0, -95px, 0); }
+    }
 
-html.scrolling .watcher {
-  animation:
-    watcherFloat 7s ease-in-out infinite alternate,
-    watcherFlicker 0.25s steps(2) 1;
-}
+    @keyframes watcherFlicker {
+      0%, 100% { opacity: 0.34; }
+      40%      { opacity: 0.48; }
+      60%      { opacity: 0.26; }
+    }
 
-/* optional mobile hide */
-@media (max-width: 800px) {
-  .watcher {
-    display: none;
-  }
-}
+    html.scrolling .watcher-inner {
+      animation:
+        watcherFloat 7s ease-in-out infinite alternate,
+        watcherFlicker 0.25s steps(2) 1;
+    }
+
+    @media (max-width: 800px) {
+      .watcher { display: none; }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      .watcher, .watcher * { animation: none !important; }
+    }
 
     /* Mobile nav hidden by default so it does not show on desktop */
     .mobile-nav {
@@ -323,13 +325,9 @@ html.scrolling .watcher {
       padding: 0.25rem 0;
     }
 
-    .mobile-nav a:hover {
-      color: var(--fg);
-    }
+    .mobile-nav a:hover { color: var(--fg); }
 
-    .mobile-nav.open {
-      display: block;
-    }
+    .mobile-nav.open { display: block; }
 
     /* Hero */
 
@@ -442,9 +440,7 @@ html.scrolling .watcher {
       transform: translateY(-1px);
     }
 
-    .btn-ghost {
-      background: transparent;
-    }
+    .btn-ghost { background: transparent; }
 
     .btn-ghost:hover {
       background: #0f1115;
@@ -458,9 +454,7 @@ html.scrolling .watcher {
       color: var(--muted);
     }
 
-    .btn-text:hover {
-      color: var(--fg);
-    }
+    .btn-text:hover { color: var(--fg); }
 
     .hero-meta {
       display: flex;
@@ -526,9 +520,7 @@ html.scrolling .watcher {
       background: #050608;
     }
 
-    .hero-panel-caption span {
-      color: var(--accent);
-    }
+    .hero-panel-caption span { color: var(--accent); }
 
     /* Section layout */
 
@@ -538,9 +530,7 @@ html.scrolling .watcher {
       border-bottom: 1px solid var(--border);
     }
 
-    .section-head {
-      margin-bottom: 1.6rem;
-    }
+    .section-head { margin-bottom: 1.6rem; }
 
     .section-title {
       font-family: "Crimes Times Six", "IBM Plex Mono", monospace;
@@ -599,9 +589,7 @@ html.scrolling .watcher {
       margin: 0.2rem 0 0;
     }
 
-    .lore-box li {
-      margin-bottom: 0.4rem;
-    }
+    .lore-box li { margin-bottom: 0.4rem; }
 
     /* Sisters */
 
@@ -617,9 +605,7 @@ html.scrolling .watcher {
       border-bottom: 1px solid #13151a;
     }
 
-    .sister:last-child {
-      border-bottom: none;
-    }
+    .sister:last-child { border-bottom: none; }
 
     .sister-header {
       display: flex;
@@ -731,9 +717,7 @@ html.scrolling .watcher {
         transform var(--speed);
     }
 
-    .platform-pill span:first-child {
-      color: var(--fg);
-    }
+    .platform-pill span:first-child { color: var(--fg); }
 
     .platform-pill:hover {
       border-color: var(--accent);
@@ -775,9 +759,7 @@ html.scrolling .watcher {
       text-decoration-thickness: 1px;
     }
 
-    .contact-email a:hover {
-      color: var(--fg);
-    }
+    .contact-email a:hover { color: var(--fg); }
 
     .social-block {
       border: 1px solid var(--border);
@@ -815,13 +797,8 @@ html.scrolling .watcher {
       color: var(--muted);
     }
 
-    .social-link span:first-child {
-      color: var(--accent);
-    }
-
-    .social-link:hover {
-      color: var(--fg);
-    }
+    .social-link span:first-child { color: var(--accent); }
+    .social-link:hover { color: var(--fg); }
 
     /* Footer */
 
@@ -848,29 +825,12 @@ html.scrolling .watcher {
     /* Responsive */
 
     @media (max-width: 800px) {
-      .site-header-inner {
-        padding-inline: 1.2rem;
-      }
-
-      .nav-main nav {
-        display: none;
-      }
-
-      .nav-toggle {
-        display: inline-flex;
-      }
-
-      .nav-flag {
-        display: none;
-      }
-
-      .mobile-nav-inner {
-        padding-inline: 1.2rem;
-      }
-
-      .shell {
-        padding-inline: 1.2rem;
-      }
+      .site-header-inner { padding-inline: 1.2rem; }
+      .nav-main nav { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .nav-flag { display: none; }
+      .mobile-nav-inner { padding-inline: 1.2rem; }
+      .shell { padding-inline: 1.2rem; }
 
       .hero {
         min-height: 0;
@@ -879,9 +839,7 @@ html.scrolling .watcher {
         padding-top: 2.3rem;
       }
 
-      .hero-panel {
-        min-height: 260px;
-      }
+      .hero-panel { min-height: 260px; }
 
       .lore-layout,
       .music-layout,
@@ -891,9 +849,7 @@ html.scrolling .watcher {
     }
 
     @media (max-width: 520px) {
-      .hero-title {
-        letter-spacing: 0.03em;
-      }
+      .hero-title { letter-spacing: 0.03em; }
     }
   </style>
 </head>
@@ -919,7 +875,12 @@ html.scrolling .watcher {
         <div class="nav-flag">
           <span>New:</span> album "Salt and Suffering" coming soon!
         </div>
-        <button class="nav-toggle" aria-label="Toggle navigation">
+        <button
+          class="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-controls="mobileNav"
+          aria-expanded="false"
+        >
           <div class="nav-line"></div>
           <div class="nav-line"></div>
           <div class="nav-line"></div>
@@ -971,7 +932,7 @@ html.scrolling .watcher {
 
           <a
             class="btn btn-ghost"
-            href="https://open.spotify.com"
+            href="https://open.spotify.com/artist/1SslPfozi6GhP2JbSNoLTB"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1212,6 +1173,16 @@ html.scrolling .watcher {
             </a>
 
             <a
+              href="https://open.spotify.com/artist/1SslPfozi6GhP2JbSNoLTB"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="platform-pill"
+            >
+              <span>Spotify</span>
+              <span>↗</span>
+            </a>
+
+            <a
               href="https://ghostorgy.bandcamp.com/"
               target="_blank"
               rel="noopener noreferrer"
@@ -1319,8 +1290,10 @@ html.scrolling .watcher {
   </footer>
 
   <!-- Floating Watcher -->
-  <div class="watcher">
-    <img src="images/watcher-face.png" alt="">
+  <div class="watcher" aria-hidden="true">
+    <div class="watcher-inner">
+      <img src="images/watcher-face.png" alt="" loading="lazy" decoding="async">
+    </div>
   </div>
 
   <script>
@@ -1333,32 +1306,51 @@ html.scrolling .watcher {
 
     if (toggle && mobileNav) {
       toggle.addEventListener("click", () => {
-        toggle.classList.toggle("open");
-        mobileNav.classList.toggle("open");
+        const isOpen = toggle.classList.toggle("open");
+        mobileNav.classList.toggle("open", isOpen);
+        toggle.setAttribute("aria-expanded", String(isOpen));
       });
 
       mobileNav.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => {
           toggle.classList.remove("open");
           mobileNav.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
         });
       });
     }
 
-    // watcher scroll flicker
+    // watcher parallax + scroll flicker
+    const watcher = document.querySelector(".watcher");
     let scrollTimer;
+    let watcherRaf = null;
+
+    function updateWatcherParallax() {
+      if (!watcher) return;
+      const y = window.scrollY || window.pageYOffset || 0;
+
+      // subtle drift; clamped so it never runs away
+      const drift = Math.min(120, y * 0.08);
+      watcher.style.transform = `translate3d(0, ${drift}px, 0)`;
+    }
+
+    updateWatcherParallax();
+
     window.addEventListener("scroll", () => {
       document.documentElement.classList.add("scrolling");
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => {
         document.documentElement.classList.remove("scrolling");
       }, 150);
-    });
+
+      // smooth parallax without hammering layout
+      if (!watcherRaf) {
+        watcherRaf = requestAnimationFrame(() => {
+          watcherRaf = null;
+          updateWatcherParallax();
+        });
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
-
-
-
-
-
