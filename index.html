@@ -704,15 +704,64 @@
       margin-bottom: 0.75rem;
     }
 
+    .player-toggle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .player-tab {
+      border-radius: 0;
+      border: 1px solid var(--border);
+      background: #050608;
+      color: var(--muted);
+      padding: 0.35rem 0.85rem;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      transition:
+        background-color var(--speed),
+        border-color var(--speed),
+        color var(--speed),
+        transform var(--speed);
+    }
+
+    .player-tab:hover {
+      border-color: #3a3f46;
+      color: var(--fg);
+      transform: translateY(-1px);
+    }
+
+    .player-tab.is-active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .player-embed {
+      display: none;
+    }
+
+    .player-embed.is-active {
+      display: block;
+    }
+
     .player-embed iframe {
       width: 100%;
-      height: 200px;
+      height: 352px;
       border: none;
       display: block;
+      border-radius: 0;
       filter: grayscale(0.6) brightness(0.88) contrast(0.95);
     }
 
-    .music-copy-wrap {
+    /* SoundCloud player is shorter than Spotify's artist embed */
+    .player-embed[data-player="soundcloud"] iframe {
+      height: 200px;
+    }.music-copy-wrap {
       border-left: 1px solid rgba(255, 255, 255, 0.06);
       padding-left: 1.4rem;
     }
@@ -1171,9 +1220,60 @@
         <!-- LEFT: PLAYER -->
         <div class="player-shell">
           <div class="player-note">
-            Ghost Orgy on SoundCloud - latest ritual cuts
+            Choose a channel
           </div>
-          <div class="player-embed">
+
+          <div class="player-toggle" role="tablist" aria-label="Music player selection">
+            <button
+              class="player-tab is-active"
+              type="button"
+              role="tab"
+              id="tabSpotify"
+              aria-selected="true"
+              aria-controls="playerSpotify"
+              data-player="spotify"
+            >
+              Spotify
+            </button>
+            <button
+              class="player-tab"
+              type="button"
+              role="tab"
+              id="tabSoundcloud"
+              aria-selected="false"
+              aria-controls="playerSoundcloud"
+              data-player="soundcloud"
+            >
+              SoundCloud
+            </button>
+          </div>
+
+          <div
+            class="player-embed is-active"
+            id="playerSpotify"
+            role="tabpanel"
+            aria-labelledby="tabSpotify"
+            data-player="spotify"
+          >
+            <iframe
+              title="Ghost Orgy on Spotify"
+              src="https://open.spotify.com/embed/artist/1SslPfozi6GhP2JbSNoLTB?utm_source=generator"
+              width="100%"
+              height="352"
+              frameborder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          </div>
+
+          <div
+            class="player-embed"
+            id="playerSoundcloud"
+            role="tabpanel"
+            aria-labelledby="tabSoundcloud"
+            data-player="soundcloud"
+            hidden
+          >
             <iframe
               title="Ghost Orgy on SoundCloud"
               scrolling="no"
@@ -1354,6 +1454,49 @@
           toggle.setAttribute("aria-expanded", "false");
         });
       });
+    }
+
+    
+
+    // music player toggle (Spotify / SoundCloud)
+    const playerTabs = document.querySelectorAll(".player-tab[data-player]");
+    const playerPanels = document.querySelectorAll(".player-embed[data-player]");
+
+    function setActivePlayer(playerName) {
+      playerTabs.forEach((btn) => {
+        const isActive = btn.dataset.player === playerName;
+        btn.classList.toggle("is-active", isActive);
+        btn.setAttribute("aria-selected", String(isActive));
+        btn.tabIndex = isActive ? 0 : -1;
+      });
+
+      playerPanels.forEach((panel) => {
+        const isActive = panel.dataset.player === playerName;
+        panel.classList.toggle("is-active", isActive);
+        panel.hidden = !isActive;
+      });
+    }
+
+    if (playerTabs.length && playerPanels.length) {
+      playerTabs.forEach((btn) => {
+        btn.addEventListener("click", () => setActivePlayer(btn.dataset.player));
+
+        // keyboard support: left/right arrows to switch tabs
+        btn.addEventListener("keydown", (e) => {
+          if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+
+          e.preventDefault();
+          const tabs = Array.from(playerTabs);
+          const i = tabs.indexOf(btn);
+          const dir = e.key === "ArrowRight" ? 1 : -1;
+          const next = tabs[(i + dir + tabs.length) % tabs.length];
+          next.focus();
+          setActivePlayer(next.dataset.player);
+        });
+      });
+
+      // default to Spotify
+      setActivePlayer("spotify");
     }
 
     // watcher parallax + scroll flicker (capped so it never "enters" the page)
