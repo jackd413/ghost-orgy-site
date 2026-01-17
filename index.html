@@ -9,6 +9,15 @@
     content="Ghost Orgy is unforgiving die-fi ritual audio. Experimental horror sound that hits the body first, then the mind."
   />
 
+   <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R946B19QCY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-R946B19QCY");
+  </script>
+
   <!-- Canonical + theming -->
   <link rel="canonical" href="https://www.unholyghost.org/" />
   <meta name="theme-color" content="#050608" />
@@ -34,15 +43,6 @@
   <!-- Preload key images (helps avoid late pop-in) -->
   <link rel="preload" as="image" href="images/hero-sister.jpg?v=2" />
   <link rel="preload" as="image" href="images/watcher-face.png" />
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R946B19QCY"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-R946B19QCY");
-  </script>
 
   <!-- RSS FEED -->
   <link
@@ -1254,6 +1254,7 @@
             role="tabpanel"
             aria-labelledby="tabSpotify"
             data-player="spotify"
+            aria-hidden="false"
           >
             <iframe
               title="Ghost Orgy on Spotify"
@@ -1273,12 +1274,14 @@
             aria-labelledby="tabSoundcloud"
             data-player="soundcloud"
             hidden
+            aria-hidden="true"
           >
             <iframe
               title="Ghost Orgy on SoundCloud"
               scrolling="no"
               frameborder="no"
               allow="autoplay"
+              loading="lazy"
               src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ghostorgymusic&color=%23050608&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
             ></iframe>
           </div>
@@ -1456,8 +1459,6 @@
       });
     }
 
-    
-
     // music player toggle (Spotify / SoundCloud)
     const playerTabs = document.querySelectorAll(".player-tab[data-player]");
     const playerPanels = document.querySelectorAll(".player-embed[data-player]");
@@ -1474,6 +1475,9 @@
         const isActive = panel.dataset.player === playerName;
         panel.classList.toggle("is-active", isActive);
         panel.hidden = !isActive;
+        panel.setAttribute("aria-hidden", String(!isActive));
+        // allow keyboard focus if needed for controls inside panel
+        panel.tabIndex = isActive ? 0 : -1;
       });
     }
 
